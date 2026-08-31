@@ -4,28 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>InApp Champions League — Season 2 Countdown</title>
-<!-- Link preview (replace the domain once hosted) -->
 <meta property="og:title" content="InApp Champions League · Season 2">
 <meta property="og:description" content="Live countdown to the first ball — 11 September, Oval Turf, Thiruvananthapuram">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://YOUR-USERNAME.github.io/icl-countdown/">
-<meta property="og:image" content="https://YOUR-USERNAME.github.io/icl-countdown/og.jpg">
+<meta property="og:url" content="https://viginapp.github.io/icl-countdown/">
+<meta property="og:image" content="https://viginapp.github.io/icl-countdown/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="629">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#C8102E">
+<meta name="theme-color" content="#AE1412">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kaushan+Script&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --yellow:#F7F52A;
-    --gold:#F3B21B;
-    --white:#FFFFFF;
-    --red:#C8102E;
+    --red:#AE1412;
+    --red-deep:#7E0C0C;
+    --navy:#0E1733;
+    --cream:#EDE9E4;
+    --gold:#F1AA03;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;background:#7A0A16;font-family:"Segoe UI","Trebuchet MS",Arial,sans-serif;overflow:hidden}
+  html,body{height:100%;background:#1a1a1a;overflow:hidden;
+    font-family:"Oswald","Segoe UI",Arial,sans-serif}
   body{display:flex;align-items:center;justify-content:center}
 
-  /* 9:16 poster canvas — scales to whatever screen it's on */
   .poster{
     position:relative;
     aspect-ratio:9/16;
@@ -35,59 +37,71 @@
     container-type:size;
     overflow:hidden;
   }
-  /* covers the static "10 / Days to Go" band from the original artwork */
-  .mask{
-    position:absolute;left:0;right:0;
-    top:36.5%;height:32%;
-    backdrop-filter:blur(28px) saturate(1.1);
-    -webkit-backdrop-filter:blur(28px) saturate(1.1);
-    background:linear-gradient(180deg,rgba(200,16,46,0) 0%,rgba(200,16,46,.55) 12%,rgba(200,16,46,.55) 88%,rgba(200,16,46,0) 100%);
-  }
   .count{
-    position:absolute;left:0;right:0;top:37.5%;
+    position:absolute;left:0;right:0;top:33%;
     display:flex;flex-direction:column;align-items:center;
-    color:var(--white);text-align:center;
+    text-align:center;
   }
+
+  /* the big day number — heavy, red, tilted like the brush lettering */
   .days{
-    color:var(--yellow);
-    font-weight:800;
-    font-size:26cqw;
-    line-height:.9;
-    letter-spacing:-.02em;
-    text-shadow:0 .6cqw 0 rgba(0,0,0,.28);
+    font-family:"Anton","Impact",sans-serif;
+    font-size:40cqw;line-height:.85;
+    color:var(--red);
+    transform:skewX(-8deg) rotate(-3deg);
+    letter-spacing:-.01em;
+    text-shadow:
+      0 .6cqw 0 var(--red-deep),
+      0 0 1.4cqw rgba(174,20,18,.25);
     font-variant-numeric:tabular-nums;
   }
-  .days-label{
-    font-size:5.4cqw;font-weight:600;margin-top:1cqw;
-    text-shadow:0 .3cqw 0 rgba(0,0,0,.3);
+
+  /* navy brush band with script text */
+  .band{
+    margin-top:-2.5cqw;
+    padding:1.6cqw 8cqw 2.2cqw;
+    background:var(--navy);
+    color:#fff;
+    font-family:"Kaushan Script",cursive;
+    font-size:9.5cqw;line-height:1;
+    transform:rotate(-3.5deg);
+    clip-path:polygon(2% 12%,10% 0,42% 6%,70% 0,97% 10%,100% 40%,98% 88%,88% 100%,60% 92%,25% 100%,3% 90%,0 55%);
+    box-shadow:0 .8cqw 0 rgba(14,23,51,.18);
   }
+
   .hms{
-    display:flex;align-items:flex-start;gap:0;margin-top:3.2cqw;
+    display:flex;align-items:flex-start;margin-top:4.5cqw;
   }
-  .unit{display:flex;flex-direction:column;align-items:center;min-width:16cqw}
+  .unit{display:flex;flex-direction:column;align-items:center;min-width:15cqw}
   .unit b{
-    font-size:11cqw;font-weight:800;line-height:1;
-    color:var(--yellow);
+    font-family:"Anton","Impact",sans-serif;font-weight:400;
+    font-size:9.5cqw;line-height:1;color:var(--red);
     font-variant-numeric:tabular-nums;
-    text-shadow:0 .45cqw 0 rgba(0,0,0,.28);
+    transform:skewX(-6deg);
   }
-  .unit span{font-size:3cqw;font-weight:600;margin-top:.8cqw;opacity:.95}
+  .unit span{
+    font-size:2.5cqw;font-weight:600;letter-spacing:.28em;
+    color:var(--navy);margin-top:1.2cqw;text-transform:uppercase;
+  }
   .colon{
-    font-size:11cqw;font-weight:800;line-height:1;color:var(--gold);
-    padding:0 .8cqw;
+    font-family:"Anton",sans-serif;font-size:9.5cqw;line-height:1;
+    color:var(--navy);padding:0 .6cqw;
     animation:tick 1s steps(1,end) infinite;
   }
-  @keyframes tick{50%{opacity:.25}}
-  .until{
-    margin-top:3cqw;font-size:3.1cqw;font-weight:500;opacity:.9;
-    text-shadow:0 .2cqw 0 rgba(0,0,0,.3);
-  }
+  @keyframes tick{50%{opacity:.2}}
+
   .live{
-    font-size:9cqw;font-weight:800;color:var(--yellow);
-    letter-spacing:.04em;text-shadow:0 .5cqw 0 rgba(0,0,0,.3);
+    font-family:"Anton","Impact",sans-serif;
+    font-size:18cqw;line-height:.9;color:var(--red);
+    transform:skewX(-8deg) rotate(-3deg);
+    text-shadow:0 .6cqw 0 var(--red-deep);
     animation:pulse 1.6s ease-in-out infinite;
   }
-  @keyframes pulse{50%{transform:scale(1.05)}}
+  .live-sub{
+    margin-top:3cqw;font-size:3.4cqw;font-weight:600;letter-spacing:.25em;
+    color:var(--navy);text-transform:uppercase;
+  }
+  @keyframes pulse{50%{transform:skewX(-8deg) rotate(-3deg) scale(1.04)}}
   @media (prefers-reduced-motion:reduce){.colon,.live{animation:none}}
 </style>
 </head>
@@ -95,7 +109,7 @@
 <div class="poster">
   <div class="count" id="count" aria-live="polite">
     <div class="days" id="d">--</div>
-    <div class="days-label" id="dlabel">Days to Go</div>
+    <div class="band" id="dlabel">Days to Go</div>
     <div class="hms">
       <div class="unit"><b id="h">--</b><span>Hours</span></div>
       <div class="colon">:</div>
@@ -103,7 +117,6 @@
       <div class="colon">:</div>
       <div class="unit"><b id="s">--</b><span>Seconds</span></div>
     </div>
-    <div class="until">Until first ball — 11 Sep 2026, 2:00 PM IST</div>
   </div>
 </div>
 <script>
@@ -114,11 +127,11 @@
   const el = id => document.getElementById(id);
 
   function render(){
-    let diff = TARGET - Date.now();
+    const diff = TARGET - Date.now();
     if (diff <= 0){
       el("count").innerHTML =
         '<div class="live">MATCH DAY</div>' +
-        '<div class="days-label">The league is live at Oval Turf</div>';
+        '<div class="live-sub">Let the game begin</div>';
       clearInterval(timer);
       return;
     }
