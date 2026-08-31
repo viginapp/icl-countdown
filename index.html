@@ -26,15 +26,16 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;background:#1a1a1a;overflow:hidden;
     font-family:"Oswald","Segoe UI",Arial,sans-serif}
-  body{display:flex;align-items:center;justify-content:center}
+  body{display:flex;align-items:center;justify-content:center;min-height:100dvh}
 
   .poster{
     position:relative;
     aspect-ratio:9/16;
-    height:100vh;
-    max-width:100vw;
+    width:min(100vw, calc(100vh * 9 / 16));   /* fallback for older browsers */
+    width:min(100vw, calc(100dvh * 9 / 16));
+    height:auto;
     background:url("poster.jpg") center/cover no-repeat;
-    container-type:size;
+    container-type:inline-size;
     overflow:hidden;
   }
   .count{
